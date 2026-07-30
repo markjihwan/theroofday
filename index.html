@@ -1,8 +1,8 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>ROOFDAY ISSUE 01 — 우리는 같은 음악을 듣고</title>
 <meta property="og:title" content="ROOFDAY ISSUE 01 — 우리는 같은 음악을 듣고">
-<meta property="og:description" content="2022–2026, 음악 일기 44트랙. 한 곡, 하루의 기록.">
+<meta property="og:description" content="2022–2026, 음악 일기 44트랙. 옆으로 넘기며 읽는 매거진.">
 <style>
 @font-face{font-family:MaruBuri;src:url('assets/fonts/MaruBuri-Regular.woff2') format('woff2');font-weight:400}
 @font-face{font-family:MaruBuri;src:url('assets/fonts/MaruBuri-Bold.woff2') format('woff2');font-weight:700}
@@ -10,398 +10,284 @@
 @font-face{font-family:Pretendard;src:url('assets/fonts/Pretendard-SemiBold.woff2') format('woff2');font-weight:600}
 :root{--paper:#f6f1e7;--ink:#1e2a5c;--dark:#241512;--acc:#e4572e}
 *{margin:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--dark);font-family:Pretendard,'Apple SD Gothic Neo',sans-serif}
-.wrap{max-width:560px;margin:0 auto}
-/* 히어로 */
-.hero{padding:64px 24px 40px;text-align:center}
-.hero .brand{font-family:Georgia,serif;font-size:34px;letter-spacing:.05em}
-.hero .issue{font-size:12px;letter-spacing:.45em;color:var(--acc);margin-top:6px}
-.hero img{width:82%;max-width:420px;margin:22px auto 0;display:block;mix-blend-mode:multiply}
-.hero h1{font-family:MaruBuri,serif;font-weight:700;font-size:24px;margin-top:14px}
-.hero .sub{font-size:12.5px;color:#8a8272;margin-top:8px}
-.play{display:inline-block;margin-top:18px;background:var(--ink);color:#fff;text-decoration:none;
+html,body{height:100%;overscroll-behavior:none}
+body{background:#2e2b28;font-family:Pretendard,'Apple SD Gothic Neo',sans-serif;color:var(--dark)}
+/* 책: 좌우 스냅 */
+#book{display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;
+ height:100dvh;scroll-behavior:smooth;-webkit-overflow-scrolling:touch}
+#book::-webkit-scrollbar{display:none}
+.page{flex:0 0 100vw;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;
+ overflow-y:auto;overflow-x:hidden;position:relative;background:var(--paper)}
+.page::before{content:"";position:fixed;left:0;top:0;bottom:0;width:14px;pointer-events:none;z-index:2;
+ background:linear-gradient(90deg,rgba(0,0,0,.16),transparent)}
+.page::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+ background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.05 0'/></filter><rect width='140' height='140' filter='url(%23n)'/></svg>")}
+/* 표지 */
+.hero .hin{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:40px 26px}
+.brand{font-family:Georgia,serif;font-size:32px;letter-spacing:.05em}
+.issue{font-size:11.5px;letter-spacing:.45em;color:var(--acc);margin-top:6px}
+.ink{width:80%;max-width:400px;margin:20px auto 0;display:block;mix-blend-mode:multiply}
+.hero h1{font-family:MaruBuri,serif;font-weight:700;font-size:23px;margin-top:12px}
+.sub{font-size:12px;color:#8a8272;margin-top:8px;line-height:1.8}
+.play{display:inline-block;margin:18px auto 0;background:var(--ink);color:#fff;text-decoration:none;
  font-size:13.5px;font-weight:600;padding:12px 22px;border-radius:999px}
 .play.alt{background:var(--acc)}
+.play.ghost{background:none;color:var(--dark);border:1.5px solid var(--dark)}
+.hint{margin-top:26px;font-size:12px;color:#8a8272;animation:nudge 1.6s ease-in-out infinite}
+@keyframes nudge{0%,100%{transform:translateX(0);opacity:.55}50%{transform:translateX(8px);opacity:1}}
 /* 목차 */
-.tocsec{padding:28px 20px 40px}
-.tocsec h2{font-family:Georgia,serif;font-size:20px;border-top:2px solid var(--dark);padding-top:14px}
-.toc{margin-top:12px;display:flex;flex-direction:column}
-.toc a{display:flex;gap:10px;align-items:baseline;padding:7px 4px;text-decoration:none;color:#3f3a31;
- font-size:13.5px;border-bottom:1px solid #e5ddcc}
-.toc b{font-family:Georgia,serif;color:var(--acc);font-size:12px;flex:none}
+.tocp .tin{padding:56px 22px 80px}
+.tocp h2,.torn h2{font-family:Georgia,serif;font-size:20px;border-top:2px solid var(--dark);padding-top:14px}
+.toc{margin-top:10px;display:flex;flex-direction:column}
+.toc a{display:flex;gap:10px;align-items:baseline;padding:6.5px 4px;text-decoration:none;color:#3f3a31;
+ font-size:13px;border-bottom:1px solid #e5ddcc}
+.toc b{font-family:Georgia,serif;color:var(--acc);font-size:11.5px;flex:none}
 .toc span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 /* 디바이더 */
-.divider{padding:40px 24px;text-align:center}
+.divider .din{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:40px 26px}
 .divider small{font-size:11px;letter-spacing:.35em;color:rgba(0,0,0,.55)}
-.divider h2{font-family:MaruBuri,serif;font-size:21px;color:rgba(0,0,0,.75);margin-top:6px}
-.divider img{width:78%;max-width:400px;margin:18px auto 0;display:block;mix-blend-mode:multiply}
-/* 트랙 */
-.track{margin:0 0 6px}
-.track header{padding:26px 22px 28px;scroll-margin-top:0}
-.track .row{display:flex;gap:10px;align-items:center}
+.divider h2{font-family:MaruBuri,serif;font-size:22px;color:rgba(0,0,0,.75);margin-top:8px}
+/* 트랙 헤더 */
+.thead .thin{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;padding:44px 28px 60px}
+.row{display:flex;gap:10px;align-items:center}
 .tno{font-family:Georgia,serif;font-size:13px;letter-spacing:.22em}
 .rep{font-size:9px;letter-spacing:.12em;padding:2px 7px;border:1px solid currentColor;border-radius:2px}
-.thumb{width:64px;height:64px;object-fit:cover;border-radius:4px;margin-top:16px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
-.track h3{font-family:MaruBuri,serif;font-weight:700;font-size:22px;margin-top:10px;word-break:keep-all}
-.track .meta{font-size:11.5px;line-height:1.7;opacity:.85;margin-top:6px}
-.track blockquote{margin-top:14px;font-size:13px;line-height:1.8;border-left:3px solid currentColor;padding-left:12px}
-.track .play{margin-top:16px}
-.pg{width:100%;display:block;background:#efe9db}
-/* 섹션 */
-section.plain{padding:36px 22px}
-section.plain h2{font-family:MaruBuri,serif;font-size:20px}
-section.plain p{margin-top:10px;font-size:13px;line-height:1.9;color:#5c574e}
+.thumb{width:72px;height:72px;object-fit:cover;border-radius:4px;margin-top:22px;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+.thead h3{font-family:MaruBuri,serif;font-weight:700;font-size:24px;margin-top:12px;word-break:keep-all}
+.meta{font-size:11.5px;line-height:1.7;opacity:.85;margin-top:8px}
+.thead blockquote{margin-top:16px;font-size:13.5px;line-height:1.85;border-left:3px solid currentColor;padding-left:12px}
+.thead .play{align-self:flex-start}
+/* 원본 페이지 */
+.ipage{background:#efe9db}
+.pg{width:100%;display:block}
+.ipage .pg{min-height:100%;object-fit:contain}
+/* B-sides / Torn / 콜로폰 */
 .bsides{background:#23222b;color:#eee6d4}
-.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}
+.bsides::after{opacity:.25}
+.bsides .bin{padding:56px 22px 80px}
+.bsides h2{font-family:MaruBuri,serif;font-size:20px;line-height:1.4}
+.bsides p{margin-top:10px;font-size:12.5px;line-height:1.9;opacity:.8}
+.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
 .bcard{text-decoration:none;color:#eee6d4}
 .bcard img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:3px}
 .bcard span{display:block;font-size:9.5px;line-height:1.4;margin-top:5px}
 .bcard i{font-style:normal;opacity:.65}
 .fnote{font-size:10px;opacity:.6;margin-top:16px;line-height:1.7}
-.colo{text-align:center;padding:56px 22px 90px}
-.colo .brand{font-family:Georgia,serif;font-size:16px}
-.colo p{margin-top:12px;font-size:12.5px;line-height:2.1;color:#5c574e}
+.torn .tin{padding:56px 22px 80px}
+.tsub{margin:10px 0 14px;font-size:12.5px;color:#5c574e;line-height:1.8}
+.torn .pg{margin-bottom:14px;border:1px solid #e5ddcc}
+.colo .cin{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;text-align:center;padding:40px 26px}
+.colo p{margin-top:14px;font-size:12.5px;line-height:2.1;color:#5c574e}
 .colo a{color:var(--acc)}
-/* 플로팅 목차 버튼 */
-#totoc{position:fixed;right:16px;bottom:16px;background:var(--dark);color:#fff;text-decoration:none;
- font-size:12px;padding:10px 16px;border-radius:999px;opacity:.88;z-index:9}
-</style></head><body><div class="wrap">
-
-<div class="hero" id="top">
-<div class="brand">ROOFDAY</div><div class="issue">ISSUE 01</div>
-<img src="assets/img/한강피날레_잉크추출.png" alt="">
+.colo .play{margin-top:24px;align-self:center}
+/* 크롬: 진행바 + 카운터 + 목차 버튼 */
+#bar{position:fixed;top:0;left:0;height:3px;background:var(--acc);width:0;z-index:9;transition:width .2s}
+#count{position:fixed;bottom:14px;left:50%;transform:translateX(-50%);font-size:10.5px;letter-spacing:.12em;
+ color:#fff;background:rgba(36,21,18,.55);padding:4px 12px;border-radius:999px;z-index:9;font-family:Georgia,serif}
+#totoc{position:fixed;right:14px;bottom:12px;background:rgba(36,21,18,.8);color:#fff;text-decoration:none;
+ font-size:11.5px;padding:8px 14px;border-radius:999px;z-index:9}
+@media (min-width:700px){.page{flex-basis:430px}#book{gap:0}body{background:#2e2b28}}
+</style></head><body>
+<div id="bar"></div>
+<main id="book"><article class="page hero" id="top"><div class="hin"><div class="brand">ROOFDAY</div><div class="issue">ISSUE 01</div>
+<img class="ink" src="assets/img/한강피날레_잉크추출.png" alt="">
 <h1>우리는 같은 음악을 듣고</h1>
-<p class="sub">2022–2026, 음악 일기 44트랙 · 글과 그림 @theroofday</p>
+<p class="sub">2022–2026, 음악 일기 44트랙<br>글과 그림 @theroofday</p>
 <a class="play" href="https://www.youtube.com/watch_videos?video_ids=PgBjMZ4IeKY,SmWJx9bObAw,Ry-rkTFjhMw,FmRXxNg3wIc,9zEl-FQLI4A,nWxUetSYO9Q,mqb2UGHABmc,BQi0xFY2OwQ,0pfjjrvuRfo,--txgg1KI68,PxNnVYUKWM8,B4XY6-BA_R0,PX_ZTRbR-7I,Liah0NIQxeU,ltNxoZFlFgY,5LzfjF1ESIc,cZF5lz4eaiw,e6__mDnNP4g,mSfH2AuhXfw,vHFi3tRTLAc,ZKOkQMhERiY,NucJk8TxyRg,XMs2CIiqRDI,vKBLLbwbqiY,DwuJeGYlYyw,G4a8gWizd1M,D2TDD7DDm8Q,0yBnIUX0QAE,fiGSDywrX1Y,DXqZ66XK3z8,Xa5AeVWT2AY,8khwZ4Dql_k,NUTGr5t3MoY,GCKSrC6XVOk,W4UZRUAh72k,RJvjoFYydCo,bYCH5KLz4cQ,Js67kofnQw0,dOQhvvNHAFk,TZ0pXUb5jVU,LVwyJTm4Avw,cZPjhueR6W4" target="_blank" rel="noopener">▶&nbsp; 전곡 들으며 읽기</a>
-</div>
-
-<div class="tocsec" id="toc"><h2>Tracklist</h2><nav class="toc"><a href="#t01"><b>01</b><span>Seasons of Love — 뮤지컬 〈RENT〉</span></a><a href="#t02"><b>02</b><span>먼지 — 이진아</span></a><a href="#t03"><b>03</b><span>Keeper — Ben Laver</span></a><a href="#t04"><b>04</b><span>람팜팜 — 이진아</span></a><a href="#t05"><b>05</b><span>San Francisco Street — Sun Rai</span></a><a href="#t06"><b>06</b><span>길을 잃기 위해서 — 좋아서하는밴드</span></a><a href="#t07"><b>07</b><span>반대과정이론 — 안녕하신가영</span></a><a href="#t08"><b>08</b><span>우리에게 쏟아지는 별들을 — 위수, 구원찬</span></a><a href="#t09"><b>09</b><span>On and On — 알레프(ALEPH)</span></a><a href="#t10"><b>10</b><span>Our Beloved Summer — 김경희</span></a><a href="#t11"><b>11</b><span>Magic — 하현상</span></a><a href="#t12"><b>12</b><span>Check In — 선우정아</span></a><a href="#t13"><b>13</b><span>Track 3 — 이소라</span></a><a href="#t14"><b>14</b><span>SUMMER LOVE... — 치스비치</span></a><a href="#t15"><b>15</b><span>지나는 여름에게 — 허해찬</span></a><a href="#t16"><b>16</b><span>Track 9 — 이소라</span></a><a href="#t17"><b>17</b><span>책 — 최백호</span></a><a href="#t18"><b>18</b><span>A Book of Love — 하현상</span></a><a href="#t19"><b>19</b><span>You&#x27;ll Be Found — 뮤지컬 〈디어 에반 핸슨〉</span></a><a href="#t20"><b>20</b><span>그리움이 내 마음의 문을 두드리면 — 원호</span></a><a href="#t21"><b>21</b><span>The Sense Waltz — 〈눈이 부시게〉 OST</span></a><a href="#t22"><b>22</b><span>Stay Alive — José González</span></a><a href="#t23"><b>23</b><span>Thrill Ride — 더보이즈</span></a><a href="#t24"><b>24</b><span>Origin of Love — MIKA</span></a><a href="#t25"><b>25</b><span>Steal the Show — Lauv</span></a><a href="#t26"><b>26</b><span>NELL 콘서트의 밤 (대표곡 Promise Me)</span></a><a href="#t27"><b>27</b><span>지나간 여름을 안타까워마 — 위수</span></a><a href="#t28"><b>28</b><span>Dancing in the Moonlight — Toploader</span></a><a href="#t29"><b>29</b><span>눈 — Zion.T</span></a><a href="#t30"><b>30</b><span>Moon Song — Phoebe Bridgers</span></a><a href="#t31"><b>31</b><span>라이더스 — 페퍼톤스</span></a><a href="#t32"><b>32</b><span>오르골 (Life Is Still Going On) — NCT DREAM</span></a><a href="#t33"><b>33</b><span>Basket Case — Green Day</span></a><a href="#t34"><b>34</b><span>포인트 니모 — 윤하</span></a><a href="#t35"><b>35</b><span>다이얼 — 까치산</span></a><a href="#t36"><b>36</b><span>주제는 사랑 — 까치산</span></a><a href="#t37"><b>37</b><span>포인트 니모 — 윤하 (Reprise · 노들섬)</span></a><a href="#t38"><b>38</b><span>철의 삶 — 정우</span></a><a href="#t39"><b>39</b><span>Young Man — 혁오 × Sunset Rollercoaster</span></a><a href="#t40"><b>40</b><span>나에게서 당신에게 — 정우</span></a><a href="#t41"><b>41</b><span>For Good — 뮤지컬 〈위키드〉</span></a><a href="#t42"><b>42</b><span>오랜 친구에게 — 쿨</span></a><a href="#t43"><b>43</b><span>우리는 같은 음악을 듣고 — 박소은</span></a><a href="#t44"><b>44</b><span>오랜 친구에게 — 쿨 (Reprise · 융플리 작별 편지)</span></a></nav></div>
-
-<section class="divider" style="background:#9db4cc"><small>SIDE A</small><h2>융플리의 시절</h2><img src="assets/img/밤산책_잉크추출.png" alt="" loading="lazy"></section><section class="track" id="t01">
-<header style="background:#831a1d;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 01</span></div>
+<div class="hint">옆으로 넘겨보세요 →</div></div></article><article class="page tocp" id="toc"><div class="tin"><h2>Tracklist</h2><nav class="toc"><a href="#t01"><b>01</b><span>Seasons of Love — 뮤지컬 〈RENT〉</span></a><a href="#t02"><b>02</b><span>먼지 — 이진아</span></a><a href="#t03"><b>03</b><span>Keeper — Ben Laver</span></a><a href="#t04"><b>04</b><span>람팜팜 — 이진아</span></a><a href="#t05"><b>05</b><span>San Francisco Street — Sun Rai</span></a><a href="#t06"><b>06</b><span>길을 잃기 위해서 — 좋아서하는밴드</span></a><a href="#t07"><b>07</b><span>반대과정이론 — 안녕하신가영</span></a><a href="#t08"><b>08</b><span>우리에게 쏟아지는 별들을 — 위수, 구원찬</span></a><a href="#t09"><b>09</b><span>On and On — 알레프(ALEPH)</span></a><a href="#t10"><b>10</b><span>Our Beloved Summer — 김경희</span></a><a href="#t11"><b>11</b><span>Magic — 하현상</span></a><a href="#t12"><b>12</b><span>Check In — 선우정아</span></a><a href="#t13"><b>13</b><span>Track 3 — 이소라</span></a><a href="#t14"><b>14</b><span>SUMMER LOVE... — 치스비치</span></a><a href="#t15"><b>15</b><span>지나는 여름에게 — 허해찬</span></a><a href="#t16"><b>16</b><span>Track 9 — 이소라</span></a><a href="#t17"><b>17</b><span>책 — 최백호</span></a><a href="#t18"><b>18</b><span>A Book of Love — 하현상</span></a><a href="#t19"><b>19</b><span>You&#x27;ll Be Found — 뮤지컬 〈디어 에반 핸슨〉</span></a><a href="#t20"><b>20</b><span>그리움이 내 마음의 문을 두드리면 — 원호</span></a><a href="#t21"><b>21</b><span>The Sense Waltz — 〈눈이 부시게〉 OST</span></a><a href="#t22"><b>22</b><span>Stay Alive — José González</span></a><a href="#t23"><b>23</b><span>Thrill Ride — 더보이즈</span></a><a href="#t24"><b>24</b><span>Origin of Love — MIKA</span></a><a href="#t25"><b>25</b><span>Steal the Show — Lauv</span></a><a href="#t26"><b>26</b><span>NELL 콘서트의 밤 (대표곡 Promise Me)</span></a><a href="#t27"><b>27</b><span>지나간 여름을 안타까워마 — 위수</span></a><a href="#t28"><b>28</b><span>Dancing in the Moonlight — Toploader</span></a><a href="#t29"><b>29</b><span>눈 — Zion.T</span></a><a href="#t30"><b>30</b><span>Moon Song — Phoebe Bridgers</span></a><a href="#t31"><b>31</b><span>라이더스 — 페퍼톤스</span></a><a href="#t32"><b>32</b><span>오르골 (Life Is Still Going On) — NCT DREAM</span></a><a href="#t33"><b>33</b><span>Basket Case — Green Day</span></a><a href="#t34"><b>34</b><span>포인트 니모 — 윤하</span></a><a href="#t35"><b>35</b><span>다이얼 — 까치산</span></a><a href="#t36"><b>36</b><span>주제는 사랑 — 까치산</span></a><a href="#t37"><b>37</b><span>포인트 니모 — 윤하 (Reprise · 노들섬)</span></a><a href="#t38"><b>38</b><span>철의 삶 — 정우</span></a><a href="#t39"><b>39</b><span>Young Man — 혁오 × Sunset Rollercoaster</span></a><a href="#t40"><b>40</b><span>나에게서 당신에게 — 정우</span></a><a href="#t41"><b>41</b><span>For Good — 뮤지컬 〈위키드〉</span></a><a href="#t42"><b>42</b><span>오랜 친구에게 — 쿨</span></a><a href="#t43"><b>43</b><span>우리는 같은 음악을 듣고 — 박소은</span></a><a href="#t44"><b>44</b><span>오랜 친구에게 — 쿨 (Reprise · 융플리 작별 편지)</span></a></nav></div></article><article class="page divider" style="background:#9db4cc"><div class="din"><small>SIDE A</small><h2>융플리의 시절</h2><img class="ink" src="assets/img/밤산책_잉크추출.png" alt="" loading="lazy"></div></article><article class="page thead" id="t01" style="background:#831a1d;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 01</span></div>
 <img class="thumb" src="assets/img/cover_01.jpg" alt="" loading="lazy"><h3>Seasons of Love</h3>
 <p class="meta">뮤지컬 〈RENT〉<br>Rent (Original Motion Picture Soundtrack) · 2005</p>
 <blockquote>“Measure you life in Love ♫”</blockquote>
-<a class="play" href="https://youtu.be/PgBjMZ4IeKY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.22.44.jpg" alt="" loading="lazy"></section><section class="track" id="t02">
-<header style="background:#eddcbd;color:#241512">
-<div class="row"><span class="tno">TRACK 02</span></div>
+<a class="play" href="https://youtu.be/PgBjMZ4IeKY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.22.44.jpg" alt="" loading="lazy"></article><article class="page thead" id="t02" style="background:#eddcbd;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 02</span></div>
 <img class="thumb" src="assets/img/cover_02.jpg" alt="" loading="lazy"><h3>먼지</h3>
 <p class="meta">이진아<br>캔디 피아니스트 - EP · 2020</p>
 <blockquote>“하나의 세계를 창조할 줄 아는 사람”</blockquote>
-<a class="play" href="https://youtu.be/SmWJx9bObAw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.24.00.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p5.24.14.jpg" alt="" loading="lazy"></section><section class="track" id="t03">
-<header style="background:#f9f9de;color:#241512">
-<div class="row"><span class="tno">TRACK 03</span></div>
+<a class="play" href="https://youtu.be/SmWJx9bObAw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.24.00.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p5.24.14.jpg" alt="" loading="lazy"></article><article class="page thead" id="t03" style="background:#f9f9de;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 03</span></div>
 <img class="thumb" src="assets/img/cover_03.jpg" alt="" loading="lazy"><h3>Keeper</h3>
 <p class="meta">Ben Laver<br>Day One - EP · 2018</p>
 <blockquote>“숲과 빙하와 하늘로 고즈넉이 비행하는 느낌”</blockquote>
-<a class="play" href="https://youtu.be/Ry-rkTFjhMw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.26.01.jpg" alt="" loading="lazy"></section><section class="track" id="t04">
-<header style="background:#181818;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 04</span></div>
+<a class="play" href="https://youtu.be/Ry-rkTFjhMw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.26.01.jpg" alt="" loading="lazy"></article><article class="page thead" id="t04" style="background:#181818;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 04</span></div>
 <img class="thumb" src="assets/img/cover_04.jpg" alt="" loading="lazy"><h3>람팜팜</h3>
 <p class="meta">이진아<br>람팜팜 - Single · 2022</p>
 <blockquote>“휘어야 하지 않아, 무너지지 않아”</blockquote>
-<a class="play" href="https://youtu.be/FmRXxNg3wIc" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.26.24.jpg" alt="" loading="lazy"></section><section class="track" id="t05">
-<header style="background:#c2cfd4;color:#241512">
-<div class="row"><span class="tno">TRACK 05</span></div>
+<a class="play" href="https://youtu.be/FmRXxNg3wIc" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.26.24.jpg" alt="" loading="lazy"></article><article class="page thead" id="t05" style="background:#c2cfd4;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 05</span></div>
 <img class="thumb" src="assets/img/cover_05.jpg" alt="" loading="lazy"><h3>San Francisco Street</h3>
 <p class="meta">Sun Rai<br>Pocket Music - EP · 2013</p>
 <blockquote>“전자기기 알람 다섯 번보다 햇빛 한 번”</blockquote>
-<a class="play" href="https://youtu.be/9zEl-FQLI4A" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.27.14.jpg" alt="" loading="lazy"></section><section class="track" id="t06">
-<header style="background:#7a7877;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 06</span></div>
+<a class="play" href="https://youtu.be/9zEl-FQLI4A" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.27.14.jpg" alt="" loading="lazy"></article><article class="page thead" id="t06" style="background:#7a7877;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 06</span></div>
 <img class="thumb" src="assets/img/cover_06.jpg" alt="" loading="lazy"><h3>길을 잃기 위해서</h3>
 <p class="meta">좋아서하는밴드<br>우리가 계절 이라면 · 2013</p>
 <blockquote>“시작할 때의 나는 가장 겁쟁이고, 가장 용감하다”</blockquote>
-<a class="play" href="https://youtu.be/nWxUetSYO9Q" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.27.56.jpg" alt="" loading="lazy"></section><section class="track" id="t07">
-<header style="background:#feeec0;color:#241512">
-<div class="row"><span class="tno">TRACK 07</span></div>
+<a class="play" href="https://youtu.be/nWxUetSYO9Q" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.27.56.jpg" alt="" loading="lazy"></article><article class="page thead" id="t07" style="background:#feeec0;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 07</span></div>
 <img class="thumb" src="assets/img/cover_07.jpg" alt="" loading="lazy"><h3>반대과정이론</h3>
 <p class="meta">안녕하신가영<br>반대과정이론 - EP · 2014</p>
 <blockquote>“혼자지만 혼자가 아니라고 느꼈던 순간”</blockquote>
-<a class="play" href="https://youtu.be/mqb2UGHABmc" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.28.48.jpg" alt="" loading="lazy"></section><section class="track" id="t08">
-<header style="background:#252c38;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 08</span></div>
+<a class="play" href="https://youtu.be/mqb2UGHABmc" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.28.48.jpg" alt="" loading="lazy"></article><article class="page thead" id="t08" style="background:#252c38;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 08</span></div>
 <img class="thumb" src="assets/img/cover_08.jpg" alt="" loading="lazy"><h3>우리에게 쏟아지는 별들을</h3>
 <p class="meta">위수, 구원찬<br>우리에게 쏟아지는 별들을 (Feat. 구원찬) - Single · 2019</p>
 <blockquote>“카메라에 담기지 않는 별빛은 마음속에 그린다”</blockquote>
-<a class="play" href="https://youtu.be/BQi0xFY2OwQ" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.29.04.jpg" alt="" loading="lazy"></section><section class="track" id="t09">
-<header style="background:#263022;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 09</span></div>
+<a class="play" href="https://youtu.be/BQi0xFY2OwQ" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.29.04.jpg" alt="" loading="lazy"></article><article class="page thead" id="t09" style="background:#263022;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 09</span></div>
 <img class="thumb" src="assets/img/cover_09.jpg" alt="" loading="lazy"><h3>On and On</h3>
 <p class="meta">알레프(ALEPH)<br>On and On - Single · 2018</p>
 <blockquote>“삶은 멀리서 보아야 아름답다 — on and on and on~”</blockquote>
-<a class="play" href="https://youtu.be/0pfjjrvuRfo" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.31.20.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p5.30.56.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p5.31.06.jpg" alt="" loading="lazy"></section><section class="track" id="t10">
-<header style="background:#c7d2b8;color:#241512">
-<div class="row"><span class="tno">TRACK 10</span></div>
+<a class="play" href="https://youtu.be/0pfjjrvuRfo" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.31.20.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p5.30.56.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p5.31.06.jpg" alt="" loading="lazy"></article><article class="page thead" id="t10" style="background:#c7d2b8;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 10</span></div>
 <img class="thumb" src="assets/img/cover_10.jpg" alt="" loading="lazy"><h3>Our Beloved Summer</h3>
 <p class="meta">김경희<br>그 해 우리는 (Original Television Soundtrack) Special · 2022</p>
 <blockquote>“모든 게 영화 같았던 날”</blockquote>
-<a class="play" href="https://youtu.be/--txgg1KI68" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.32.28.jpg" alt="" loading="lazy"></section><section class="track" id="t11">
-<header style="background:#b4cfda;color:#241512">
-<div class="row"><span class="tno">TRACK 11</span></div>
+<a class="play" href="https://youtu.be/--txgg1KI68" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.32.28.jpg" alt="" loading="lazy"></article><article class="page thead" id="t11" style="background:#b4cfda;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 11</span></div>
 <img class="thumb" src="assets/img/cover_11.jpg" alt="" loading="lazy"><h3>Magic</h3>
 <p class="meta">하현상<br>Living the Moment of Love - Single · 2022</p>
 <blockquote>“그때는 그때대로, 지금은 지금을”</blockquote>
-<a class="play" href="https://youtu.be/PxNnVYUKWM8" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.33.30.jpg" alt="" loading="lazy"></section><section class="track" id="t12">
-<header style="background:#d45071;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 12</span></div>
+<a class="play" href="https://youtu.be/PxNnVYUKWM8" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.33.30.jpg" alt="" loading="lazy"></article><article class="page thead" id="t12" style="background:#d45071;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 12</span></div>
 <img class="thumb" src="assets/img/cover_12.jpg" alt="" loading="lazy"><h3>Check In</h3>
 <p class="meta">선우정아<br>Seoul Check-in, Pt. 6 (Original Soundtrack) - Single · 2022</p>
 <blockquote>“내가 있는 곳이 그냥 나이기를”</blockquote>
-<a class="play" href="https://youtu.be/B4XY6-BA_R0" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.33.48.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p5.33.58.jpg" alt="" loading="lazy"></section><section class="track" id="t13">
-<header style="background:#a23773;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 13</span></div>
+<a class="play" href="https://youtu.be/B4XY6-BA_R0" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.33.48.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p5.33.58.jpg" alt="" loading="lazy"></article><article class="page thead" id="t13" style="background:#a23773;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 13</span></div>
 <img class="thumb" src="assets/img/cover_13.jpg" alt="" loading="lazy"><h3>Track 3</h3>
 <p class="meta">이소라<br>7집 · 2008</p>
 <blockquote>“나를 무너뜨리는 것도, 일으키는 것도 사람”</blockquote>
-<a class="play" href="https://youtu.be/PX_ZTRbR-7I" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.36.09.jpg" alt="" loading="lazy"></section><section class="divider" style="background:#e0b96a"><small>SIDE B</small><h2>계절을 지나며</h2><img src="assets/img/워크숍_잉크추출.png" alt="" loading="lazy"></section><section class="track" id="t14">
-<header style="background:#4cacbf;color:#241512">
-<div class="row"><span class="tno">TRACK 14</span></div>
+<a class="play" href="https://youtu.be/PX_ZTRbR-7I" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.36.09.jpg" alt="" loading="lazy"></article><article class="page divider" style="background:#e0b96a"><div class="din"><small>SIDE B</small><h2>계절을 지나며</h2><img class="ink" src="assets/img/워크숍_잉크추출.png" alt="" loading="lazy"></div></article><article class="page thead" id="t14" style="background:#4cacbf;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 14</span></div>
 <img class="thumb" src="assets/img/cover_14.jpg" alt="" loading="lazy"><h3>SUMMER LOVE...</h3>
 <p class="meta">치스비치<br>Summer Love… - Single · 2019</p>
 <blockquote>“겨울 옥탑에서 일부러 듣는 Summer Love”</blockquote>
-<a class="play" href="https://youtu.be/Liah0NIQxeU" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.39.50.jpg" alt="" loading="lazy"></section><section class="track" id="t15">
-<header style="background:#020001;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 15</span></div>
+<a class="play" href="https://youtu.be/Liah0NIQxeU" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.39.50.jpg" alt="" loading="lazy"></article><article class="page thead" id="t15" style="background:#020001;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 15</span></div>
 <img class="thumb" src="assets/img/cover_15.jpg" alt="" loading="lazy"><h3>지나는 여름에게</h3>
 <p class="meta">허해찬<br></p>
 <blockquote>“지금의 내가 좋아서”</blockquote>
-<a class="play" href="https://youtu.be/ltNxoZFlFgY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.44.26.jpg" alt="" loading="lazy"></section><section class="track" id="t16">
-<header style="background:#a23773;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 16</span></div>
+<a class="play" href="https://youtu.be/ltNxoZFlFgY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.44.26.jpg" alt="" loading="lazy"></article><article class="page thead" id="t16" style="background:#a23773;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 16</span></div>
 <img class="thumb" src="assets/img/cover_16.jpg" alt="" loading="lazy"><h3>Track 9</h3>
 <p class="meta">이소라<br>7집 · 2008</p>
 <blockquote>“곁에 있어주는 것밖에 할 수 없어서”</blockquote>
-<a class="play" href="https://youtu.be/5LzfjF1ESIc" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p5.52.26.jpg" alt="" loading="lazy"></section><section class="track" id="t17">
-<header style="background:#080708;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 17</span></div>
+<a class="play" href="https://youtu.be/5LzfjF1ESIc" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p5.52.26.jpg" alt="" loading="lazy"></article><article class="page thead" id="t17" style="background:#080708;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 17</span></div>
 <img class="thumb" src="assets/img/cover_17.jpg" alt="" loading="lazy"><h3>책</h3>
 <p class="meta">최백호<br>찰나 · 2022</p>
 <blockquote>“오직 나를 위한 시간, 나를 위한 의식”</blockquote>
-<a class="play" href="https://youtu.be/cZF5lz4eaiw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.00.13.jpg" alt="" loading="lazy"></section><section class="track" id="t18">
-<header style="background:#466ab0;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 18</span></div>
+<a class="play" href="https://youtu.be/cZF5lz4eaiw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.00.13.jpg" alt="" loading="lazy"></article><article class="page thead" id="t18" style="background:#466ab0;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 18</span></div>
 <img class="thumb" src="assets/img/cover_18.jpg" alt="" loading="lazy"><h3>A Book of Love</h3>
 <p class="meta">하현상<br>The Edge - EP · 2020</p>
 <blockquote>“좋은 순간엔 찍지 않고 바라본다”</blockquote>
-<a class="play" href="https://youtu.be/e6__mDnNP4g" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.02.24.jpg" alt="" loading="lazy"></section><section class="track" id="t19">
-<header style="background:#a3c9e4;color:#241512">
-<div class="row"><span class="tno">TRACK 19</span></div>
+<a class="play" href="https://youtu.be/e6__mDnNP4g" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.02.24.jpg" alt="" loading="lazy"></article><article class="page thead" id="t19" style="background:#a3c9e4;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 19</span></div>
 <img class="thumb" src="assets/img/cover_19.jpg" alt="" loading="lazy"><h3>You&#x27;ll Be Found</h3>
 <p class="meta">뮤지컬 〈디어 에반 핸슨〉<br>Dear Evan Hansen (Original Broadway Cast Recording) · 2017</p>
 <blockquote>“All is new, that all is new!”</blockquote>
-<a class="play" href="https://youtu.be/mSfH2AuhXfw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.03.25.jpg" alt="" loading="lazy"></section><section class="track" id="t20">
-<header style="background:#c46039;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 20</span></div>
+<a class="play" href="https://youtu.be/mSfH2AuhXfw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.03.25.jpg" alt="" loading="lazy"></article><article class="page thead" id="t20" style="background:#c46039;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 20</span></div>
 <img class="thumb" src="assets/img/cover_20.jpg" alt="" loading="lazy"><h3>그리움이 내 마음의 문을 두드리면</h3>
 <p class="meta">원호<br>더 플라워 타임머신 · 2023</p>
 <blockquote>“한쪽 귀에선 햇빛이 들리고”</blockquote>
-<a class="play" href="https://youtu.be/vHFi3tRTLAc" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.04.10.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p6.04.18.jpg" alt="" loading="lazy"></section><section class="track" id="t21">
-<header style="background:#fefeff;color:#241512">
-<div class="row"><span class="tno">TRACK 21</span></div>
+<a class="play" href="https://youtu.be/vHFi3tRTLAc" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.04.10.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p6.04.18.jpg" alt="" loading="lazy"></article><article class="page thead" id="t21" style="background:#fefeff;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 21</span></div>
 <img class="thumb" src="assets/img/cover_21.jpg" alt="" loading="lazy"><h3>The Sense Waltz</h3>
 <p class="meta">〈눈이 부시게〉 OST<br>눈이 부시게 With Piano (Original Television Soundtrack) · 2019</p>
 <blockquote>“결국, 사랑이구나”</blockquote>
-<a class="play" href="https://youtu.be/ZKOkQMhERiY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.07.05.jpg" alt="" loading="lazy"></section><section class="track" id="t22">
-<header style="background:#fffffc;color:#241512">
-<div class="row"><span class="tno">TRACK 22</span></div>
+<a class="play" href="https://youtu.be/ZKOkQMhERiY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.07.05.jpg" alt="" loading="lazy"></article><article class="page thead" id="t22" style="background:#fffffc;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 22</span></div>
 <img class="thumb" src="assets/img/cover_22.jpg" alt="" loading="lazy"><h3>Stay Alive</h3>
 <p class="meta">José González<br>The Secret Life of Walter Mitty (Music From and Inspired By the Motion Picture) · 2013</p>
 <blockquote>“Dawn is coming — Open your eyes”</blockquote>
-<a class="play" href="https://youtu.be/NucJk8TxyRg" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.07.21.jpg" alt="" loading="lazy"></section><section class="track" id="t23">
-<header style="background:#00060e;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 23</span></div>
+<a class="play" href="https://youtu.be/NucJk8TxyRg" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.07.21.jpg" alt="" loading="lazy"></article><article class="page thead" id="t23" style="background:#00060e;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 23</span></div>
 <img class="thumb" src="assets/img/cover_23.jpg" alt="" loading="lazy"><h3>Thrill Ride</h3>
 <p class="meta">더보이즈<br>THE BOYZ 6TH MINI ALBUM [THRILL-ING] - EP · 2021</p>
 <blockquote>“입덕 초기 증상인가?”</blockquote>
-<a class="play" href="https://youtu.be/XMs2CIiqRDI" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.07.47.jpg" alt="" loading="lazy"></section><section class="track" id="t24">
-<header style="background:#b3aea7;color:#241512">
-<div class="row"><span class="tno">TRACK 24</span></div>
+<a class="play" href="https://youtu.be/XMs2CIiqRDI" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.07.47.jpg" alt="" loading="lazy"></article><article class="page thead" id="t24" style="background:#b3aea7;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 24</span></div>
 <img class="thumb" src="assets/img/cover_24.jpg" alt="" loading="lazy"><h3>Origin of Love</h3>
 <p class="meta">MIKA<br>The Origin of Love · 2012</p>
 <blockquote>“우리는 모두 모순적인 사람들 아닐까”</blockquote>
-<a class="play" href="https://youtu.be/vKBLLbwbqiY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.10.02.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p6.10.10.jpg" alt="" loading="lazy"></section><section class="divider" style="background:#a9bd9a"><small>SIDE C</small><h2>다시, 나의 리듬</h2><img src="assets/img/발리_잉크추출.png" alt="" loading="lazy"></section><section class="track" id="t25">
-<header style="background:#030009;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 25</span></div>
+<a class="play" href="https://youtu.be/vKBLLbwbqiY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.10.02.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p6.10.10.jpg" alt="" loading="lazy"></article><article class="page divider" style="background:#a9bd9a"><div class="din"><small>SIDE C</small><h2>다시, 나의 리듬</h2><img class="ink" src="assets/img/발리_잉크추출.png" alt="" loading="lazy"></div></article><article class="page thead" id="t25" style="background:#030009;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 25</span></div>
 <img class="thumb" src="assets/img/cover_25.jpg" alt="" loading="lazy"><h3>Steal the Show</h3>
 <p class="meta">Lauv<br>Steal The Show (From &quot;Elemental&quot;) - Single · 2023</p>
 <blockquote>“아, 다행이다. 내 안에 사랑이 있구나”</blockquote>
-<a class="play" href="https://youtu.be/DwuJeGYlYyw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.12.09.jpg" alt="" loading="lazy"></section><section class="track" id="t26">
-<header style="background:#433236;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 26</span></div>
+<a class="play" href="https://youtu.be/DwuJeGYlYyw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.12.09.jpg" alt="" loading="lazy"></article><article class="page thead" id="t26" style="background:#433236;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 26</span></div>
 <img class="thumb" src="assets/img/cover_26.jpg" alt="" loading="lazy"><h3>NELL 콘서트의 밤 (대표곡 Promise Me)</h3>
 <p class="meta"><br>Separation Anxiety · 2008</p>
 <blockquote>“좋아하는 것은 남의 시선과 상관없이 믿고 가라”</blockquote>
-<a class="play" href="https://youtu.be/G4a8gWizd1M" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.12.54.jpg" alt="" loading="lazy"></section><section class="track" id="t27">
-<header style="background:#2029aa;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 27</span></div>
+<a class="play" href="https://youtu.be/G4a8gWizd1M" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.12.54.jpg" alt="" loading="lazy"></article><article class="page thead" id="t27" style="background:#2029aa;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 27</span></div>
 <img class="thumb" src="assets/img/cover_27.jpg" alt="" loading="lazy"><h3>지나간 여름을 안타까워마</h3>
 <p class="meta">위수<br>지나간 여름을 안타까워마 - EP · 2021</p>
 <blockquote>“올해도 좋은 여름이었다, 이리 말할 수 있어서”</blockquote>
-<a class="play" href="https://youtu.be/D2TDD7DDm8Q" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.13.17.jpg" alt="" loading="lazy"></section><section class="track" id="t28">
-<header style="background:#49180c;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 28</span></div>
+<a class="play" href="https://youtu.be/D2TDD7DDm8Q" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.13.17.jpg" alt="" loading="lazy"></article><article class="page thead" id="t28" style="background:#49180c;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 28</span></div>
 <img class="thumb" src="assets/img/cover_28.jpg" alt="" loading="lazy"><h3>Dancing in the Moonlight</h3>
 <p class="meta">Toploader<br>Dancing In the Moonlight - The Best of Toploader · 1999</p>
 <blockquote>“많고 많은 곡 중에 이 노래를 고르셨나요~”</blockquote>
-<a class="play" href="https://youtu.be/0yBnIUX0QAE" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.16.49.jpg" alt="" loading="lazy"></section><section class="track" id="t29">
-<header style="background:#063a5a;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 29</span></div>
+<a class="play" href="https://youtu.be/0yBnIUX0QAE" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.16.49.jpg" alt="" loading="lazy"></article><article class="page thead" id="t29" style="background:#063a5a;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 29</span></div>
 <img class="thumb" src="assets/img/cover_29.jpg" alt="" loading="lazy"><h3>눈</h3>
 <p class="meta">Zion.T<br>눈 (feat. 이문세) - Single · 2017</p>
 <blockquote>“난 앞으로도 눈을 사랑할 테야”</blockquote>
-<a class="play" href="https://youtu.be/fiGSDywrX1Y" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.18.30.jpg" alt="" loading="lazy"></section><section class="track" id="t30">
-<header style="background:#072338;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 30</span></div>
+<a class="play" href="https://youtu.be/fiGSDywrX1Y" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.18.30.jpg" alt="" loading="lazy"></article><article class="page thead" id="t30" style="background:#072338;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 30</span></div>
 <img class="thumb" src="assets/img/cover_30.jpg" alt="" loading="lazy"><h3>Moon Song</h3>
 <p class="meta">Phoebe Bridgers<br>Punisher · 2020</p>
 <blockquote>“커졌다가, 작아졌다가 — 그럴 수 있지”</blockquote>
-<a class="play" href="https://youtu.be/DXqZ66XK3z8" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.19.12.jpg" alt="" loading="lazy"></section><section class="track" id="t31">
-<header style="background:#1c1c22;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 31</span></div>
+<a class="play" href="https://youtu.be/DXqZ66XK3z8" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.19.12.jpg" alt="" loading="lazy"></article><article class="page thead" id="t31" style="background:#1c1c22;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 31</span></div>
 <img class="thumb" src="assets/img/cover_31.jpg" alt="" loading="lazy"><h3>라이더스</h3>
 <p class="meta">페퍼톤스<br>Twenty Plenty · 2024</p>
 <blockquote>“기준이 다른 이가 아닌 나인 것”</blockquote>
-<a class="play" href="https://youtu.be/Xa5AeVWT2AY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.20.45.jpg" alt="" loading="lazy"></section><section class="track" id="t32">
-<header style="background:#fff361;color:#241512">
-<div class="row"><span class="tno">TRACK 32</span></div>
+<a class="play" href="https://youtu.be/Xa5AeVWT2AY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.20.45.jpg" alt="" loading="lazy"></article><article class="page thead" id="t32" style="background:#fff361;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 32</span></div>
 <img class="thumb" src="assets/img/cover_32.jpg" alt="" loading="lazy"><h3>오르골 (Life Is Still Going On)</h3>
 <p class="meta">NCT DREAM<br>Hello Future - The 1st Album Repackage - EP · 2021</p>
 <blockquote>“파도에 잠식되기보다 올라타서 서핑하는 느낌으로”</blockquote>
-<a class="play" href="https://youtu.be/8khwZ4Dql_k" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.20.52.jpg" alt="" loading="lazy"></section><section class="track" id="t33">
-<header style="background:#f4f7fa;color:#241512">
-<div class="row"><span class="tno">TRACK 33</span></div>
+<a class="play" href="https://youtu.be/8khwZ4Dql_k" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.20.52.jpg" alt="" loading="lazy"></article><article class="page thead" id="t33" style="background:#f4f7fa;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 33</span></div>
 <img class="thumb" src="assets/img/cover_33.jpg" alt="" loading="lazy"><h3>Basket Case</h3>
 <p class="meta">Green Day<br>Dookie · 1994</p>
 <blockquote>“규율이 자리 잡힐수록 자유가 커진다”</blockquote>
-<a class="play" href="https://youtu.be/NUTGr5t3MoY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.21.20.jpg" alt="" loading="lazy"></section><section class="track" id="t34">
-<header style="background:#9cf2fb;color:#241512">
-<div class="row"><span class="tno">TRACK 34</span></div>
+<a class="play" href="https://youtu.be/NUTGr5t3MoY" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.21.20.jpg" alt="" loading="lazy"></article><article class="page thead" id="t34" style="background:#9cf2fb;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 34</span></div>
 <img class="thumb" src="assets/img/cover_34.jpg" alt="" loading="lazy"><h3>포인트 니모</h3>
 <p class="meta">윤하<br>YOUNHA 7th Album Repackage ‘GROWTH THEORY : Final Edition’ · 2024</p>
 <blockquote>“멀리 오래오래 달리고 싶다”</blockquote>
-<a class="play" href="https://youtu.be/GCKSrC6XVOk" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.21.40.jpg" alt="" loading="lazy"></section><section class="track" id="t35">
-<header style="background:#49e14a;color:#241512">
-<div class="row"><span class="tno">TRACK 35</span></div>
+<a class="play" href="https://youtu.be/GCKSrC6XVOk" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.21.40.jpg" alt="" loading="lazy"></article><article class="page thead" id="t35" style="background:#49e14a;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 35</span></div>
 <img class="thumb" src="assets/img/cover_35.jpg" alt="" loading="lazy"><h3>다이얼</h3>
 <p class="meta">까치산<br>다이얼 - Single · 2024</p>
 <blockquote>“행복의 레코드에 나를 올려둔다”</blockquote>
-<a class="play" href="https://youtu.be/W4UZRUAh72k" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.22.24.jpg" alt="" loading="lazy"></section><section class="track" id="t36">
-<header style="background:#fdffff;color:#241512">
-<div class="row"><span class="tno">TRACK 36</span></div>
+<a class="play" href="https://youtu.be/W4UZRUAh72k" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.22.24.jpg" alt="" loading="lazy"></article><article class="page thead" id="t36" style="background:#fdffff;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 36</span></div>
 <img class="thumb" src="assets/img/cover_36.jpg" alt="" loading="lazy"><h3>주제는 사랑</h3>
 <p class="meta">까치산<br>안녕하세요, 까치산입니다. · 2023</p>
 <blockquote>“기록하지 않으면 잊혀질 사소한 행복들”</blockquote>
-<a class="play" href="https://youtu.be/RJvjoFYydCo" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.23.02.jpg" alt="" loading="lazy"></section><section class="divider" style="background:#c8a2a8"><small>SIDE D</small><h2>사라지는 것들과 사랑</h2></section><section class="track" id="t37">
-<header style="background:#9cf2fb;color:#241512">
-<div class="row"><span class="tno">TRACK 37</span><span class="rep">REPRISE</span></div>
+<a class="play" href="https://youtu.be/RJvjoFYydCo" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.23.02.jpg" alt="" loading="lazy"></article><article class="page divider" style="background:#c8a2a8"><div class="din"><small>SIDE D</small><h2>사라지는 것들과 사랑</h2></div></article><article class="page thead" id="t37" style="background:#9cf2fb;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 37</span><span class="rep">REPRISE</span></div>
 <img class="thumb" src="assets/img/cover_34.jpg" alt="" loading="lazy"><h3>포인트 니모</h3>
 <p class="meta">윤하 (Reprise · 노들섬)<br>YOUNHA 7th Album Repackage ‘GROWTH THEORY : Final Edition’ · 2024</p>
 <blockquote>“사라지는 모든 것들과 사랑”</blockquote>
-<a class="play" href="https://youtu.be/GCKSrC6XVOk" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.23.30.jpg" alt="" loading="lazy"></section><section class="track" id="t38">
-<header style="background:#aeaeae;color:#241512">
-<div class="row"><span class="tno">TRACK 38</span></div>
+<a class="play" href="https://youtu.be/GCKSrC6XVOk" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.23.30.jpg" alt="" loading="lazy"></article><article class="page thead" id="t38" style="background:#aeaeae;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 38</span></div>
 <img class="thumb" src="assets/img/cover_37.jpg" alt="" loading="lazy"><h3>철의 삶</h3>
 <p class="meta">정우<br>철의 삶 - EP · 2025</p>
 <blockquote>“천 번을 두드리는 삶도 세상에 있는 것이었다”</blockquote>
-<a class="play" href="https://youtu.be/bYCH5KLz4cQ" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.24.27.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p6.24.32.jpg" alt="" loading="lazy"></section><section class="track" id="t39">
-<header style="background:#e4ecfd;color:#241512">
-<div class="row"><span class="tno">TRACK 39</span></div>
+<a class="play" href="https://youtu.be/bYCH5KLz4cQ" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.24.27.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p6.24.32.jpg" alt="" loading="lazy"></article><article class="page thead" id="t39" style="background:#e4ecfd;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 39</span></div>
 <img class="thumb" src="assets/img/cover_38.jpg" alt="" loading="lazy"><h3>Young Man</h3>
 <p class="meta">혁오 × Sunset Rollercoaster<br>Young Man - Single · 2024</p>
 <blockquote>“Go forward with no regret”</blockquote>
-<a class="play" href="https://youtu.be/Js67kofnQw0" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.24.38.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p6.24.42.jpg" alt="" loading="lazy"></section><section class="track" id="t40">
-<header style="background:#da6a62;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 40</span></div>
+<a class="play" href="https://youtu.be/Js67kofnQw0" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.24.38.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p6.24.42.jpg" alt="" loading="lazy"></article><article class="page thead" id="t40" style="background:#da6a62;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 40</span></div>
 <img class="thumb" src="assets/img/cover_39.jpg" alt="" loading="lazy"><h3>나에게서 당신에게</h3>
 <p class="meta">정우<br>여섯 번째 토요일 · 2019</p>
 <blockquote>“익숙한 서울이 아닌 곳에서 발견하는 서로의 새로운 면”</blockquote>
-<a class="play" href="https://youtu.be/dOQhvvNHAFk" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.25.46.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p6.25.50.jpg" alt="" loading="lazy"></section><section class="track" id="t41">
-<header style="background:#010103;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 41</span></div>
+<a class="play" href="https://youtu.be/dOQhvvNHAFk" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.25.46.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p6.25.50.jpg" alt="" loading="lazy"></article><article class="page thead" id="t41" style="background:#010103;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 41</span></div>
 <img class="thumb" src="assets/img/cover_40.jpg" alt="" loading="lazy"><h3>For Good</h3>
 <p class="meta">뮤지컬 〈위키드〉<br>Wicked (Original Broadway Cast Recording) · 2003</p>
 <blockquote>“변하지 않는 게 있을 수 있단 걸 알려줘”</blockquote>
-<a class="play" href="https://youtu.be/TZ0pXUb5jVU" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.26.04.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p6.26.11.jpg" alt="" loading="lazy"></section><section class="track" id="t42">
-<header style="background:#c89989;color:#241512">
-<div class="row"><span class="tno">TRACK 42</span></div>
+<a class="play" href="https://youtu.be/TZ0pXUb5jVU" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.26.04.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p6.26.11.jpg" alt="" loading="lazy"></article><article class="page thead" id="t42" style="background:#c89989;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 42</span></div>
 <img class="thumb" src="assets/img/cover_41.jpg" alt="" loading="lazy"><h3>오랜 친구에게</h3>
 <p class="meta">쿨<br>Cool 5 · 2000</p>
 <blockquote>“추억은 힘이 있다 — 일단 나를 움직이게 만드는”</blockquote>
-<a class="play" href="https://youtu.be/LVwyJTm4Avw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.26.17.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p6.26.22.jpg" alt="" loading="lazy"></section><section class="track" id="t43">
-<header style="background:#98794f;color:#f6f1e7">
-<div class="row"><span class="tno">TRACK 43</span></div>
+<a class="play" href="https://youtu.be/LVwyJTm4Avw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.26.17.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p6.26.22.jpg" alt="" loading="lazy"></article><article class="page thead" id="t43" style="background:#98794f;color:#f6f1e7"><div class="thin"><div class="row"><span class="tno">TRACK 43</span></div>
 <img class="thumb" src="assets/img/cover_42.jpg" alt="" loading="lazy"><h3>우리는 같은 음악을 듣고</h3>
 <p class="meta">박소은<br>우리는 같은 음악을 듣고 - Single · 2021</p>
 <blockquote>“언젠가 이 일기를 봤을 때 또 감회가 새롭길”</blockquote>
-<a class="play" href="https://youtu.be/cZPjhueR6W4" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.26.32.jpg" alt="" loading="lazy"></section><section class="track" id="t44">
-<header style="background:#c89989;color:#241512">
-<div class="row"><span class="tno">TRACK 44</span><span class="rep">REPRISE</span></div>
+<a class="play" href="https://youtu.be/cZPjhueR6W4" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.26.32.jpg" alt="" loading="lazy"></article><article class="page thead" id="t44" style="background:#c89989;color:#241512"><div class="thin"><div class="row"><span class="tno">TRACK 44</span><span class="rep">REPRISE</span></div>
 <img class="thumb" src="assets/img/cover_41.jpg" alt="" loading="lazy"><h3>오랜 친구에게</h3>
 <p class="meta">쿨 (Reprise · 융플리 작별 편지)<br>Cool 5 · 2000</p>
 <blockquote>“같이 음악 좋아하는 오랜 친구야”</blockquote>
-<a class="play" href="https://youtu.be/LVwyJTm4Avw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a>
-</header><img class="pg" src="assets/img/p6.27.01.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p6.27.06.jpg" alt="" loading="lazy"></section>
-
-<section class="divider" style="background:#e8a087"><small>OUTRO</small><h2>음악이 계속 이어지는 한</h2>
-<img src="assets/img/한강피날레_잉크추출.png" alt="" loading="lazy"></section>
-
-<section class="plain bsides"><h2>B-sides — 본문에 스쳐간 노래들</h2>
-<p>트랙이 되지 못한 채 문장 사이를 지나간 곡들. 커버를 누르면 바로 들을 수 있다.</p>
+<a class="play" href="https://youtu.be/LVwyJTm4Avw" target="_blank" rel="noopener">▶&nbsp; 이 곡 들으며 읽기</a></div></article><article class="page ipage"><img class="pg" src="assets/img/p6.27.01.jpg" alt="" loading="lazy"></article><article class="page ipage"><img class="pg" src="assets/img/p6.27.06.jpg" alt="" loading="lazy"></article><article class="page divider" style="background:#e8a087"><div class="din"><small>OUTRO</small><h2>음악이 계속 이어지는 한</h2><img class="ink" src="assets/img/한강피날레_잉크추출.png" alt="" loading="lazy"></div></article><article class="page bsides"><div class="bin"><h2>B-sides<br>— 본문에 스쳐간 노래들</h2>
+<p>트랙이 되지 못한 채 문장 사이를 지나간 곡들.<br>커버를 누르면 바로 들을 수 있다.</p>
 <a class="play alt" href="https://www.youtube.com/watch_videos?video_ids=gwtSHseUD_0,RTiBP4OygiE,yl0HP_OeUF4,XYAghEq5Lfw,s7Men6TYovU,eMOtqmVMhkg,dqlJN9vo9fA,pYRSY1Kv3YY,SKs72A3PANQ,wdzjOdAqaT0,ZdBTBZfqI5w,G-7wAom1eGA,vzoYgasvKdo,dvgZkm1xWPE,k4V3Mo61fJM" target="_blank" rel="noopener">▶&nbsp; B-sides 이어 듣기</a>
 <div class="bgrid"><a class="bcard" href="https://youtu.be/gwtSHseUD_0" target="_blank" rel="noopener"><img src="assets/img/b01.jpg" alt="" loading="lazy"><span>Fine (feat. 임선영)<br><i>위아더나잇</i></span></a><a class="bcard" href="https://youtu.be/RTiBP4OygiE" target="_blank" rel="noopener"><img src="assets/img/b02.jpg" alt="" loading="lazy"><span>히어로<br><i>루시(LUCY)</i></span></a><a class="bcard" href="https://youtu.be/yl0HP_OeUF4" target="_blank" rel="noopener"><img src="assets/img/b03.jpg" alt="" loading="lazy"><span>불꽃놀이<br><i>하현상</i></span></a><a class="bcard" href="https://youtu.be/XYAghEq5Lfw" target="_blank" rel="noopener"><img src="assets/img/b04.jpg" alt="" loading="lazy"><span>Youth<br><i>Troye Sivan</i></span></a><a class="bcard" href="https://youtu.be/s7Men6TYovU" target="_blank" rel="noopener"><img src="assets/img/b05.jpg" alt="" loading="lazy"><span>People Are People<br><i>D&#x27;Sound</i></span></a><a class="bcard" href="https://youtu.be/eMOtqmVMhkg" target="_blank" rel="noopener"><img src="assets/img/b06.jpg" alt="" loading="lazy"><span>JUST 4 U<br><i>치스비치</i></span></a><a class="bcard" href="https://youtu.be/dqlJN9vo9fA" target="_blank" rel="noopener"><img src="assets/img/b07.jpg" alt="" loading="lazy"><span>Pretender<br><i>하현상</i></span></a><a class="bcard" href="https://youtu.be/pYRSY1Kv3YY" target="_blank" rel="noopener"><img src="assets/img/b08.jpg" alt="" loading="lazy"><span>WHISPER<br><i>더보이즈</i></span></a><a class="bcard" href="https://youtu.be/SKs72A3PANQ" target="_blank" rel="noopener"><img src="assets/img/b09.jpg" alt="" loading="lazy"><span>Moonlight Punch Romance<br><i>넬(NELL)</i></span></a><a class="bcard" href="https://youtu.be/wdzjOdAqaT0" target="_blank" rel="noopener"><img src="assets/img/b10.jpg" alt="" loading="lazy"><span>Island<br><i>넬(NELL)</i></span></a><a class="bcard" href="https://youtu.be/ZdBTBZfqI5w" target="_blank" rel="noopener"><img src="assets/img/b11.jpg" alt="" loading="lazy"><span>Ocean of Light<br><i>넬(NELL)</i></span></a><a class="bcard" href="https://youtu.be/G-7wAom1eGA" target="_blank" rel="noopener"><img src="assets/img/b12.jpg" alt="" loading="lazy"><span>Burn<br><i>넬(NELL)</i></span></a><a class="bcard" href="https://youtu.be/vzoYgasvKdo" target="_blank" rel="noopener"><img src="assets/img/b13.jpg" alt="" loading="lazy"><span>Happy Ending<br><i>MIKA</i></span></a><a class="bcard" href="https://youtu.be/dvgZkm1xWPE" target="_blank" rel="noopener"><img src="assets/img/b14.jpg" alt="" loading="lazy"><span>Viva la Vida<br><i>Coldplay</i></span></a><a class="bcard" href="https://youtu.be/k4V3Mo61fJM" target="_blank" rel="noopener"><img src="assets/img/b15.jpg" alt="" loading="lazy"><span>Fix You<br><i>Coldplay</i></span></a></div>
-<p class="fnote">* The Volunteers는 아티스트로만, Circle of Life와 River는 흐름에 대한 은유로 언급되었다.</p></section>
-
-<section class="plain"><h2>Torn pages — 앞부분이 사라진 글들</h2>
-<p>시작을 잃었지만 버릴 수 없던 문장들.</p><img class="pg" src="assets/img/p5.59.21.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p6.05.12.jpg" alt="" loading="lazy"><img class="pg" src="assets/img/p6.06.16.jpg" alt="" loading="lazy"></section>
-
-<section class="colo"><div class="brand">ROOFDAY ISSUE 01</div>
+<p class="fnote">* The Volunteers는 아티스트로만, Circle of Life와 River는 흐름에 대한 은유로 언급되었다.</p></div></article><article class="page torn"><div class="tin"><h2>Torn pages</h2><p class="tsub">앞부분이 사라진 글들 — 시작을 잃었지만 버릴 수 없던 문장들.</p>
+<img class="pg" src="assets/img/p5.59.21.jpg" alt="" loading="lazy">
+<img class="pg" src="assets/img/p6.05.12.jpg" alt="" loading="lazy">
+<img class="pg" src="assets/img/p6.06.16.jpg" alt="" loading="lazy"></div></article><article class="page colo"><div class="cin"><div class="brand">ROOFDAY ISSUE 01</div>
 <p>글·그림 — 옥상의 날 <a href="https://www.instagram.com/theroofday/" target="_blank" rel="noopener">@theroofday</a><br>
-2022–2026의 음악 일기에서.<br><br>“Let's sit on the roof at 1 a.m.<br>and talk about life.”</p></section>
-
-</div><a id="totoc" href="#toc">목차</a></body></html>
+2022–2026의 음악 일기에서.<br><br>“Let's sit on the roof at 1 a.m.<br>and talk about life.”</p>
+<a class="play ghost" href="#top">⟲&nbsp; 처음으로</a></div></article></main>
+<div id="count">1 / 110</div><a id="totoc" href="#toc">목차</a>
+<script>
+const book=document.getElementById('book'),bar=document.getElementById('bar'),cnt=document.getElementById('count');
+const pw=()=>book.querySelector('.page').getBoundingClientRect().width;
+const N=document.querySelectorAll('.page').length;
+function upd(){const i=Math.round(book.scrollLeft/pw());bar.style.width=((i+1)/N*100)+'%';cnt.textContent=(i+1)+' / '+N;}
+book.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});upd();
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')book.scrollBy({left:pw(),behavior:'smooth'});
+ if(e.key==='ArrowLeft')book.scrollBy({left:-pw(),behavior:'smooth'});});
+</script></body></html>
